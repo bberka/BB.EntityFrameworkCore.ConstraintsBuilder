@@ -2,24 +2,31 @@
 
 Simple constrains builder library for EntityFrameworkCore with Fluent API
 
-Currently only Sql Server is supported.
 
 Check sample project for more details.
 
+This project licensed under [MIT](https://choosealicense.com/licenses/mit/) license
 
-###  Install package with NuGet Package Manager
+##  Install package
+
+Nuget Package Manager
 ```bash
 Install-Package EfCore.ConstraintsBuilder
 ```
 
-### Install package with CLI
+CLI
 ```bash
 dotnet add package EfCore.ConstraintsBuilder
 ```
 
-### This project licensed under [MIT](https://choosealicense.com/licenses/mit/) license
+### Supported Data Types 
+- [x] String
+- [x] Int
 
-### Usage with Fluent API
+### Supported Database Providers
+- [x] Sql Server
+
+## Usage with Fluent API
 
 ### Basic User Entity
 ```csharp
@@ -44,7 +51,8 @@ public class SampleDbContext : DbContext
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.Name)
                 .RegexExpression("UserEntity_Name_Regex", "^[a-zA-Z0-9]*$")
-                .StringMinLength("UserEntity_Name_MinLength", 5);
+                .MinLength(1)
+                .MaxLength(25);
 
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.Age)
@@ -53,47 +61,51 @@ public class SampleDbContext : DbContext
 
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.LastName)
-                .StringMinLength("UserEntity_LastName_MinLength", 10);
+                .MinLength("UserEntity_LastName_MinLength", 10);
 
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.AccountValidFor)
-                .NumberInBetween("UserEntity_AccountValidFor_Between", 1, 30);
+                .NumberInBetween("UserEntity_AccountValidFor_Between", 1, 30);    
   }
 }
 ```
 
+## Builders and methods
+Currently supported builder methods listed below, more will be added in future.
 
-### Usage with Data Annotations
+If no constraint name provided for a method, a unique constraint name will be generated.
+Example: `User_Name_Regex_UnqiueGuid`
 
-#### Applying Data Annotations to User Entity
+### StringConstraintsBuilder Methods
 ```csharp
-public class UserEntity
-{
-  [StringLength(10, MinimumLength = 5)]
-  [RegularExpression("^[a-zA-Z0-9]*$")]
-  public string Name { get; set; }
-  
-  [Range(18, 99)]
-  public int Age { get; set; }
-  
-  [StringLength(10, MinimumLength = 10)]
-  public string LastName { get; set; }
-  
-  [Range(1, 30)]
-  public int AccountValidFor { get; set; }
-}
+  StringConstraintsBuilder<TEntity> EmailAddress();
+  StringConstraintsBuilder<TEntity> EmailAddress(string constraintName );
+  StringConstraintsBuilder<TEntity> Url();
+  StringConstraintsBuilder<TEntity> Url(string constraintName);
+  StringConstraintsBuilder<TEntity> PhoneNumber();
+  StringConstraintsBuilder<TEntity> PhoneNumber(string constraintName);
+  StringConstraintsBuilder<TEntity> CreditCard();
+  StringConstraintsBuilder<TEntity> CreditCard(string constraintName);
+  StringConstraintsBuilder<TEntity> RegexExpression(string regex);
+  StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex);
+  StringConstraintsBuilder<TEntity> MinLength(int minLength);
+  StringConstraintsBuilder<TEntity> MinLength(string constraintName, int minLength);
+  StringConstraintsBuilder<TEntity> MaxLength(int maxLength);
+  StringConstraintsBuilder<TEntity> MaxLength(string constraintName, int maxLength);
+  StringConstraintsBuilder<TEntity> LengthBetween(int minLength, int maxLength);
+  StringConstraintsBuilder<TEntity> LengthBetween(string constraintName, int minLength, int maxLength);
+  StringConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<string> acceptedValues);
+  StringConstraintsBuilder<TEntity> EqualOneOf(string constraintName,IEnumerable<string> acceptedValues);
 ```
 
-#### Applying Constraints to User Entity inside DbContext
+### IntConstraintsBuilder Methods
 ```csharp
-public class SampleDbContext : DbContext
-{
-  
-  public DbSet<UserEntity> Users { get; set; }
-  
-  protected override void OnModelCreating(ModelBuilder modelBuilder) {
-    modelBuilder.Entity<UserEntity>()
-                .AddConstraintsFromDataAnnotations();
-  }
-}
+  IntConstraintsBuilder<TEntity> NumberInBetween(int min, int max);
+  IntConstraintsBuilder<TEntity> NumberInBetween(string constraintName, int min, int max);
+  IntConstraintsBuilder<TEntity> NumberMin(int min);
+  IntConstraintsBuilder<TEntity> NumberMin(string constraintName, int min);
+  IntConstraintsBuilder<TEntity> NumberMax(int max);
+  IntConstraintsBuilder<TEntity> NumberMax(string constraintName, int max);
+  IntConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<int> acceptedValues);
+  IntConstraintsBuilder<TEntity> EqualOneOf(string constraintName, IEnumerable<int> acceptedValues);
 ```
