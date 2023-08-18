@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EfCore.ConstraintsBuilder;
 
-public static class ConstrainsBuilderExtensions
+public static class ConstraintsBuilderExtensions
 {
   public static StringConstraintsBuilder<TEntity> AddConstraintsFor<TEntity>(
     this EntityTypeBuilder<TEntity> builder,
@@ -21,6 +21,13 @@ public static class ConstrainsBuilderExtensions
     return new IntConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
   }
   
+  public static LongConstraintsBuilder<TEntity> AddConstraintsFor<TEntity>(
+    this EntityTypeBuilder<TEntity> builder,
+    Expression<Func<TEntity, long>> keySelector,
+    SqlServerProvider serverProvider = SqlServerProvider.SqlServer)
+    where TEntity : class {
+    return new LongConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
+  }
   
   
   // public static void AddConstraintsFromDataAnnotations<TEntity>(this EntityTypeBuilder<TEntity> builder,
