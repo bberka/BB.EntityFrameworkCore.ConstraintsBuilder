@@ -11,7 +11,7 @@ public static class InternalTool
   public const string CreditCardRegex = @"^(\d{4}[- ]){3}\d{4}|\d{16}$";
   
   
-  public static string CreateUniqueConstraintName(string tableName, string columnName, string suffix, bool addRandomSuffix = true) {
+  public static string CreateUniqueConstraintName(string tableName, string columnName, string suffix, object? valueForCheck = null) {
     var sb = new StringBuilder();
     sb.Append("CK_");
     sb.Append(tableName);
@@ -19,9 +19,9 @@ public static class InternalTool
     sb.Append(columnName);
     sb.Append('_');
     sb.Append(suffix);
-    if (!addRandomSuffix) return sb.ToString();
     sb.Append('_');
-    sb.Append(Guid.NewGuid().ToString().Replace("-", ""));
+    var num = valueForCheck?.GetHashCode() ?? 0;
+    sb.Append(num);
     return sb.ToString();
   }
 

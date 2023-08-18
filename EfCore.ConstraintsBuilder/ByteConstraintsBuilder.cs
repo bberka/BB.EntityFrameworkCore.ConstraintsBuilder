@@ -30,28 +30,28 @@ public sealed class ByteConstraintsBuilder<TEntity> where TEntity : class
     _columnName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
   }
   
-  public ByteConstraintsBuilder<TEntity> NumberInBetween(byte min, byte max)  => NumberInBetween(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberInBetween"), min, max);
+  public ByteConstraintsBuilder<TEntity> NumberInBetween(byte min, byte max)  => NumberInBetween(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberInBetween", min + "_" + max), min, max);
   public ByteConstraintsBuilder<TEntity> NumberInBetween(string uniqueConstraintName, byte min, byte max) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" >= {min} AND \"{_columnName}\" <= {max}"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] >= {min} AND [{_columnName}] <= {max}"));
     return this;
   }
-  public ByteConstraintsBuilder<TEntity> NumberMin(byte min)  => NumberMin(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMin"), min);
+  public ByteConstraintsBuilder<TEntity> NumberMin(byte min)  => NumberMin(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMin", min), min);
   public ByteConstraintsBuilder<TEntity> NumberMin(string uniqueConstraintName, byte min) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" >= {min} "));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] >= {min} "));
     return this;
   }
 
   
-  public ByteConstraintsBuilder<TEntity> NumberMax(byte max)  => NumberMax(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMax"), max);
+  public ByteConstraintsBuilder<TEntity> NumberMax(byte max)  => NumberMax(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMax", max), max);
   public ByteConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, byte max) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" <= {max}"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] <= {max}"));
     return this;
   }
   
-  public ByteConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<byte> acceptedValues)  => EqualOneOf(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "EqualOneOf"), acceptedValues);
+  public ByteConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<byte> acceptedValues)  => EqualOneOf(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "EqualOneOf", acceptedValues), acceptedValues);
   public ByteConstraintsBuilder<TEntity> EqualOneOf(string uniqueConstraintName, IEnumerable<byte> acceptedValues) {
     var values = string.Join(',', acceptedValues);
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" IN ({values})"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] IN ({values})"));
     return this;
   }
 }

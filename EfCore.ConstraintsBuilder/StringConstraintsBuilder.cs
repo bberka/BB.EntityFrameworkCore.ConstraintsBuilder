@@ -36,7 +36,7 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 
   public StringConstraintsBuilder<TEntity> EmailAddress(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" ~ '{InternalTool.EmailRegex}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalTool.EmailRegex}'"));
     return this;
   }
 
@@ -44,14 +44,14 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 
   public StringConstraintsBuilder<TEntity> Url(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" ~ '{InternalTool.UrlRegex}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalTool.UrlRegex}'"));
     return this;
   }
 
   public StringConstraintsBuilder<TEntity> PhoneNumber() => PhoneNumber(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "PhoneNumber"));
 
   public StringConstraintsBuilder<TEntity> PhoneNumber(string constraintName) {
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" ~ '{InternalTool.PhoneNumberRegex}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalTool.PhoneNumberRegex}'"));
     return this;
   }
 
@@ -60,11 +60,11 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
   public StringConstraintsBuilder<TEntity> CreditCard(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" ~ '{InternalTool.CreditCardRegex}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalTool.CreditCardRegex}'"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> RegexExpression(string regex) => RegexExpression(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "RegexExpression"), regex);
+  public StringConstraintsBuilder<TEntity> RegexExpression(string regex) => RegexExpression(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "RegexExpression", regex), regex);
 
   public StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex) {
     var isValidRegex = InternalTool.IsValidRegex(regex);
@@ -74,37 +74,37 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" ~ '{regex}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{regex}'"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> MinLength(int minLength) => MinLength(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "MinLength"), minLength);
+  public StringConstraintsBuilder<TEntity> MinLength(int minLength) => MinLength(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "MinLength", minLength), minLength);
 
   public StringConstraintsBuilder<TEntity> MinLength(string constraintName, int minLength) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LENGTH(\"{_columnName}\") >= {minLength}"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LEN([{_columnName}]) >= {minLength}"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> MaxLength(int maxLength) => MinLength(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "MaxLength"), maxLength);
+  public StringConstraintsBuilder<TEntity> MaxLength(int maxLength) => MinLength(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "MaxLength", maxLength), maxLength);
 
   public StringConstraintsBuilder<TEntity> MaxLength(string constraintName, int maxLength) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LENGTH(\"{_columnName}\") <= {maxLength}"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LEN([{_columnName}]) <= {maxLength}"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> LengthBetween(int minLength, int maxLength) => LengthBetween(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "LengthBetween"), minLength, maxLength);
+  public StringConstraintsBuilder<TEntity> LengthBetween(int minLength, int maxLength) => LengthBetween(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "LengthBetween", minLength + "_" + maxLength), minLength, maxLength);
 
   public StringConstraintsBuilder<TEntity> LengthBetween(string constraintName, int minLength, int maxLength) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LENGTH(\"{_columnName}\") >= {minLength} AND LENGTH(\"{_columnName}\") <= {maxLength}"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LEN([{_columnName}]) >= {minLength} AND LEN([{_columnName}]) <= {maxLength}"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> EqualsOneOf(IEnumerable<string> acceptedValues) => EqualsOneOf(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "EqualsOneOf"), acceptedValues);
+  public StringConstraintsBuilder<TEntity> EqualsOneOf(IEnumerable<string> acceptedValues) => EqualsOneOf(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "EqualsOneOf", acceptedValues), acceptedValues);
 
   public StringConstraintsBuilder<TEntity> EqualsOneOf(string constraintName, IEnumerable<string> acceptedValues) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
@@ -115,11 +115,11 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
     }
 
     var values = sb.ToString().TrimEnd(',');
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" IN ({values})"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] IN ({values})"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> NotEqualsOneOf(IEnumerable<string> acceptedValues) => NotEqualsOneOf(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotEqualsOneOf"), acceptedValues);
+  public StringConstraintsBuilder<TEntity> NotEqualsOneOf(IEnumerable<string> acceptedValues) => NotEqualsOneOf(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotEqualsOneOf", acceptedValues), acceptedValues);
 
   public StringConstraintsBuilder<TEntity> NotEqualsOneOf(string constraintName, IEnumerable<string> acceptedValues) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
@@ -130,60 +130,60 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
     }
 
     var values = sb.ToString().TrimEnd(',');
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" NOT IN ({values})"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] NOT IN ({values})"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> Equals(string value) => Equals(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "Equals"), value);
+  public StringConstraintsBuilder<TEntity> Equals(string value) => Equals(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "Equals", value), value);
 
   public StringConstraintsBuilder<TEntity> Equals(string constraintName, string value) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" = '{value}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] = '{value}'"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> NotEquals(string value) => NotEquals(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotEquals"), value);
+  public StringConstraintsBuilder<TEntity> NotEquals(string value) => NotEquals(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotEquals", value), value);
 
   public StringConstraintsBuilder<TEntity> NotEquals(string constraintName, string value) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" != '{value}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] != '{value}'"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> StartsWith(string value) => StartsWith(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "StartsWith"), value);
+  public StringConstraintsBuilder<TEntity> StartsWith(string value) => StartsWith(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "StartsWith", value), value);
 
   public StringConstraintsBuilder<TEntity> StartsWith(string constraintName, string value) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" LIKE '{value}%'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{value}%'"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> EndsWith(string value) => EndsWith(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "EndsWith"), value);
+  public StringConstraintsBuilder<TEntity> EndsWith(string value) => EndsWith(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "EndsWith", value), value);
 
   public StringConstraintsBuilder<TEntity> EndsWith(string constraintName, string value) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" LIKE '%{value}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '%{value}'"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> Contains(string value) => Contains(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "Contains"), value);
+  public StringConstraintsBuilder<TEntity> Contains(string value) => Contains(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "Contains", value), value);
 
   public StringConstraintsBuilder<TEntity> Contains(string constraintName, string value) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" LIKE '%{value}%'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '%{value}%'"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> NotContains(string value) => NotContains(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotContains"), value);
+  public StringConstraintsBuilder<TEntity> NotContains(string value) => NotContains(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotContains", value), value);
 
   public StringConstraintsBuilder<TEntity> NotContains(string constraintName, string value) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" NOT LIKE '%{value}%'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] NOT LIKE '%{value}%'"));
     return this;
   }
 
@@ -192,7 +192,7 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
   public StringConstraintsBuilder<TEntity> Empty(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
 
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LENGTH(\"{_columnName}\") = 0"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LEN([{_columnName}]) = 0"));
     return this;
   }
 
@@ -200,7 +200,7 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 
   public StringConstraintsBuilder<TEntity> NotEmpty(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LENGTH(\"{_columnName}\") > 0"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"LEN([{_columnName}]) > 0"));
     return this;
   }
 
@@ -208,7 +208,7 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 
   public StringConstraintsBuilder<TEntity> NullOrWhiteSpace(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"TRIM(\"{_columnName}\") = ''"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"TRIM([{_columnName}]) = ''"));
     return this;
   }
 
@@ -216,27 +216,27 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 
   public StringConstraintsBuilder<TEntity> NotNullOrWhiteSpace(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"TRIM(\"{_columnName}\") != ''"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"TRIM([{_columnName}]) != ''"));
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> EqualsProperty(Expression<Func<TEntity, string>> propertySelector) => EqualsProperty(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "EqualsProperty"), propertySelector);
+  public StringConstraintsBuilder<TEntity> EqualsProperty(Expression<Func<TEntity, string>> propertySelector) => EqualsProperty(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "EqualsProperty", propertySelector), propertySelector);
 
   public StringConstraintsBuilder<TEntity> EqualsProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
     var propertyInfo = propertySelector.GetPropertyAccess();
     var propertyName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" != \"{propertyName}\""));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] != [{propertyName}]"));
     return this;
   }
   
-  public StringConstraintsBuilder<TEntity> NotEqualsProperty(Expression<Func<TEntity, string>> propertySelector) => NotEqualsProperty(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotEqualsProperty"), propertySelector);
+  public StringConstraintsBuilder<TEntity> NotEqualsProperty(Expression<Func<TEntity, string>> propertySelector) => NotEqualsProperty(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotEqualsProperty", propertySelector), propertySelector);
   
   public StringConstraintsBuilder<TEntity> NotEqualsProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
     var propertyInfo = propertySelector.GetPropertyAccess();
     var propertyName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"\"{_columnName}\" = \"{propertyName}\""));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] = [{propertyName}]"));
     return this;
   }
   

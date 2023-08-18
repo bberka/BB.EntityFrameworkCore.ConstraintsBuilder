@@ -29,28 +29,28 @@ public sealed class ShortConstraintsBuilder<TEntity> where TEntity : class
     _columnName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
   }
   
-  public ShortConstraintsBuilder<TEntity> NumberInBetween(short min, short max)  => NumberInBetween(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberInBetween"), min, max);
+  public ShortConstraintsBuilder<TEntity> NumberInBetween(short min, short max)  => NumberInBetween(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberInBetween", min + "_" + max), min, max);
   public ShortConstraintsBuilder<TEntity> NumberInBetween(string uniqueConstraintName, short min, short max) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" >= {min} AND \"{_columnName}\" <= {max}"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] >= {min} AND [{_columnName}] <= {max}"));
     return this;
   }
-  public ShortConstraintsBuilder<TEntity> NumberMin(short min)  => NumberMin(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMin"), min);
+  public ShortConstraintsBuilder<TEntity> NumberMin(short min)  => NumberMin(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMin" ,min), min);
   public ShortConstraintsBuilder<TEntity> NumberMin(string uniqueConstraintName, short min) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" >= {min} "));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] >= {min} "));
     return this;
   }
 
   
-  public ShortConstraintsBuilder<TEntity> NumberMax(short max)  => NumberMax(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMax"), max);
+  public ShortConstraintsBuilder<TEntity> NumberMax(short max)  => NumberMax(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMax", max), max);
   public ShortConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, short max) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" <= {max}"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] <= {max}"));
     return this;
   }
   
-  public ShortConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<short> acceptedValues)  => EqualOneOf(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "EqualOneOf"), acceptedValues);
+  public ShortConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<short> acceptedValues)  => EqualOneOf(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "EqualOneOf", acceptedValues), acceptedValues);
   public ShortConstraintsBuilder<TEntity> EqualOneOf(string uniqueConstraintName, IEnumerable<short> acceptedValues) {
     var values = string.Join(',', acceptedValues);
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" IN ({values})"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] IN ({values})"));
     return this;
   }
 }

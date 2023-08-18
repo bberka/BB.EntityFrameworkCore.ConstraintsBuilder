@@ -26,28 +26,28 @@ public sealed class IntConstraintsBuilder<TEntity> where TEntity : class
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;
     _columnName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
   }
-  public IntConstraintsBuilder<TEntity> NumberInBetween(int min, int max)  => NumberInBetween(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberInBetween"), min, max);
+  public IntConstraintsBuilder<TEntity> NumberInBetween(int min, int max)  => NumberInBetween(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberInBetween", min + "_" + max), min, max);
   public IntConstraintsBuilder<TEntity> NumberInBetween(string uniqueConstraintName, int min, int max) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" >= {min} AND \"{_columnName}\" <= {max}"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] >= {min} AND [{_columnName}] <= {max}"));
     return this;
   }
-  public IntConstraintsBuilder<TEntity> NumberMin(int min)  => NumberMin(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMin"), min);
+  public IntConstraintsBuilder<TEntity> NumberMin(int min)  => NumberMin(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMin", min), min);
   public IntConstraintsBuilder<TEntity> NumberMin(string uniqueConstraintName, int min) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" >= {min} "));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] >= {min} "));
     return this;
   }
 
   
-  public IntConstraintsBuilder<TEntity> NumberMax(int max)  => NumberMax(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMax"), max);
+  public IntConstraintsBuilder<TEntity> NumberMax(int max)  => NumberMax(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "NumberMax", max), max);
   public IntConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, int max) {
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" <= {max}"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] <= {max}"));
     return this;
   }
   
-  public IntConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<int> acceptedValues)  => EqualOneOf(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "EqualOneOf"), acceptedValues);
+  public IntConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<int> acceptedValues)  => EqualOneOf(InternalTool.CreateUniqueConstraintName(_tableName,_columnName, "EqualOneOf", acceptedValues), acceptedValues);
   public IntConstraintsBuilder<TEntity> EqualOneOf(string uniqueConstraintName, IEnumerable<int> acceptedValues) {
     var values = string.Join(',', acceptedValues);
-    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" IN ({values})"));
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] IN ({values})"));
     return this;
   }
 }
