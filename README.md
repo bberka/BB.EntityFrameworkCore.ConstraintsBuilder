@@ -82,24 +82,50 @@ Example: `User_Name_Regex_UnqiueGuid`
 
 ### StringConstraintsBuilder Methods
 ```csharp
-StringConstraintsBuilder<TEntity> EmailAddress();
-StringConstraintsBuilder<TEntity> EmailAddress(string constraintName );
-StringConstraintsBuilder<TEntity> Url();
-StringConstraintsBuilder<TEntity> Url(string constraintName);
-StringConstraintsBuilder<TEntity> PhoneNumber();
-StringConstraintsBuilder<TEntity> PhoneNumber(string constraintName);
-StringConstraintsBuilder<TEntity> CreditCard();
-StringConstraintsBuilder<TEntity> CreditCard(string constraintName);
-StringConstraintsBuilder<TEntity> RegexExpression(string regex);
-StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex);
-StringConstraintsBuilder<TEntity> MinLength(int minLength);
-StringConstraintsBuilder<TEntity> MinLength(string constraintName, int minLength);
-StringConstraintsBuilder<TEntity> MaxLength(int maxLength);
-StringConstraintsBuilder<TEntity> MaxLength(string constraintName, int maxLength);
-StringConstraintsBuilder<TEntity> LengthBetween(int minLength, int maxLength);
-StringConstraintsBuilder<TEntity> LengthBetween(string constraintName, int minLength, int maxLength);
-StringConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<string> acceptedValues);
-StringConstraintsBuilder<TEntity> EqualOneOf(string constraintName,IEnumerable<string> acceptedValues);
+  StringConstraintsBuilder<TEntity> EmailAddress();
+  StringConstraintsBuilder<TEntity> EmailAddress(string constraintName);
+  StringConstraintsBuilder<TEntity> Url();
+  StringConstraintsBuilder<TEntity> Url(string constraintName);
+  StringConstraintsBuilder<TEntity> PhoneNumber();
+  StringConstraintsBuilder<TEntity> PhoneNumber(string constraintName);
+  StringConstraintsBuilder<TEntity> CreditCard();
+  StringConstraintsBuilder<TEntity> CreditCard(string constraintName);
+  StringConstraintsBuilder<TEntity> RegexExpression(string regex);
+  StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex);
+  StringConstraintsBuilder<TEntity> MinLength(int minLength);
+  StringConstraintsBuilder<TEntity> MinLength(string constraintName, int minLength);
+  StringConstraintsBuilder<TEntity> MaxLength(int maxLength);
+  StringConstraintsBuilder<TEntity> MaxLength(string constraintName, int maxLength);
+  StringConstraintsBuilder<TEntity> LengthBetween(int minLength, int maxLength);
+  StringConstraintsBuilder<TEntity> LengthBetween(string constraintName, int minLength, int maxLength);
+  StringConstraintsBuilder<TEntity> EqualsOneOf(IEnumerable<string> acceptedValues);
+  StringConstraintsBuilder<TEntity> EqualsOneOf(string constraintName, IEnumerable<string> acceptedValues);
+  StringConstraintsBuilder<TEntity> NotEqualsOneOf(IEnumerable<string> acceptedValues);
+  StringConstraintsBuilder<TEntity> NotEqualsOneOf(string constraintName, IEnumerable<string> acceptedValues);
+  StringConstraintsBuilder<TEntity> Equals(string value);
+  StringConstraintsBuilder<TEntity> Equals(string constraintName, string value);
+  StringConstraintsBuilder<TEntity> NotEquals(string value);
+  StringConstraintsBuilder<TEntity> NotEquals(string constraintName, string value);
+  StringConstraintsBuilder<TEntity> StartsWith(string value);
+  StringConstraintsBuilder<TEntity> StartsWith(string constraintName, string value);
+  StringConstraintsBuilder<TEntity> EndsWith(string value);
+  StringConstraintsBuilder<TEntity> EndsWith(string constraintName, string value);
+  StringConstraintsBuilder<TEntity> Contains(string value);
+  StringConstraintsBuilder<TEntity> Contains(string constraintName, string value);
+  StringConstraintsBuilder<TEntity> NotContains(string value);
+  StringConstraintsBuilder<TEntity> NotContains(string constraintName, string value);
+  StringConstraintsBuilder<TEntity> Empty();
+  StringConstraintsBuilder<TEntity> Empty(string constraintName);
+  StringConstraintsBuilder<TEntity> NotEmpty();
+  StringConstraintsBuilder<TEntity> NotEmpty(string constraintName);
+  StringConstraintsBuilder<TEntity> NullOrWhiteSpace();
+  StringConstraintsBuilder<TEntity> NullOrWhiteSpace(string constraintName);
+  StringConstraintsBuilder<TEntity> NotNullOrWhiteSpace();
+  StringConstraintsBuilder<TEntity> NotNullOrWhiteSpace(string constraintName);
+  StringConstraintsBuilder<TEntity> EqualProperty(Expression<Func<TEntity, string>> propertySelector);
+  StringConstraintsBuilder<TEntity> EqualProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector);
+  StringConstraintsBuilder<TEntity> NotEqualProperty(Expression<Func<TEntity, string>> propertySelector);
+  StringConstraintsBuilder<TEntity> NotEqualProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector);
 ```
 
 ### IntConstraintsBuilder Methods
