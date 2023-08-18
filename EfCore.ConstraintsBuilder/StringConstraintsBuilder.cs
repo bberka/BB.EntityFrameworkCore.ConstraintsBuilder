@@ -220,9 +220,9 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> EqualProperty(Expression<Func<TEntity, string>> propertySelector) => EqualProperty(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "EqualProperty"), propertySelector);
+  public StringConstraintsBuilder<TEntity> EqualsProperty(Expression<Func<TEntity, string>> propertySelector) => EqualsProperty(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "EqualsProperty"), propertySelector);
 
-  public StringConstraintsBuilder<TEntity> EqualProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector) {
+  public StringConstraintsBuilder<TEntity> EqualsProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
     var propertyInfo = propertySelector.GetPropertyAccess();
     var propertyName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
@@ -230,9 +230,9 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
     return this;
   }
   
-  public StringConstraintsBuilder<TEntity> NotEqualProperty(Expression<Func<TEntity, string>> propertySelector) => NotEqualProperty(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotEqualProperty"), propertySelector);
+  public StringConstraintsBuilder<TEntity> NotEqualsProperty(Expression<Func<TEntity, string>> propertySelector) => NotEqualsProperty(InternalTool.CreateUniqueConstraintName(_tableName, _columnName, "NotEqualsProperty"), propertySelector);
   
-  public StringConstraintsBuilder<TEntity> NotEqualProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector) {
+  public StringConstraintsBuilder<TEntity> NotEqualsProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
     var propertyInfo = propertySelector.GetPropertyAccess();
     var propertyName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
