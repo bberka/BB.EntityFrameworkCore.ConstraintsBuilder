@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EfCore.ConstraintsBuilder;
@@ -23,6 +24,7 @@ public sealed class ConstraintsBuilder<TEntity> where TEntity : class
     _serverType = serverType;
   }
 
+  
   public ConstraintsBuilder<TEntity> RegexExpression( string uniqueConstraintName,string regex) {
     _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" ~ '{regex}'"));
     return this;
@@ -39,8 +41,32 @@ public sealed class ConstraintsBuilder<TEntity> where TEntity : class
     _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" <= {max}"));
     return this;
   }
-  public ConstraintsBuilder<TEntity> MinStringLength(string uniqueConstraintName,int minLength) {
+  public ConstraintsBuilder<TEntity> StringMinLength(string uniqueConstraintName,int minLength) {
     _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"LENGTH(\"{_columnName}\") >= {minLength}"));
+    return this;
+  }
+  
+  public ConstraintsBuilder<TEntity> StringEqualOneOf(string uniqueConstraintName,params string[] acceptedValues) {
+    var values = string.Join(',', acceptedValues);
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" IN ({values})"));
+    return this;
+  }
+  
+  public ConstraintsBuilder<TEntity> NumberEqualOneOf(string uniqueConstraintName,params int[] acceptedValues) {
+    var values = string.Join(',', acceptedValues);
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" IN ({values})"));
+    return this;
+  }
+  
+  public ConstraintsBuilder<TEntity> StringEmailAddress(string uniqueConstraintName) {
+    const string EmailRegex =  "^[^@]+@[^@]+$";
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" ~ '{EmailRegex}'"));
+    return this;
+  }
+  
+  public ConstraintsBuilder<TEntity> StringUrl(string uniqueConstraintName) {
+    const string UrlRegex =  @"^(http://|https://|ftp://)";
+    _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"\"{_columnName}\" ~ '{UrlRegex}'"));
     return this;
   }
 }

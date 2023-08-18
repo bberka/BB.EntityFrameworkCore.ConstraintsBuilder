@@ -12,7 +12,7 @@ public class SampleDbContext : DbContext
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.Name)
                 .RegexExpression("UserEntity_Name_Regex", "^[a-zA-Z0-9]*$")
-                .MinStringLength("UserEntity_Name_MinLength", 5);
+                .StringMinLength("UserEntity_Name_MinLength", 5);
 
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.Age)
@@ -21,7 +21,7 @@ public class SampleDbContext : DbContext
 
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.LastName)
-                .MinStringLength("UserEntity_LastName_MinLength", 10);
+                .StringMinLength("UserEntity_LastName_MinLength", 10);
 
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.AccountValidFor)
