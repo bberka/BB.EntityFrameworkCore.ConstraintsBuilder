@@ -29,6 +29,21 @@ public static class ConstraintsBuilderExtensions
     return new LongConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
   }
   
+  public static ShortConstraintsBuilder<TEntity> AddConstraintsFor<TEntity>(
+    this EntityTypeBuilder<TEntity> builder,
+    Expression<Func<TEntity, short>> keySelector,
+    SqlServerProvider serverProvider = SqlServerProvider.SqlServer)
+    where TEntity : class {
+    return new ShortConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
+  }
+  
+  public static ByteConstraintsBuilder<TEntity> AddConstraintsFor<TEntity>(
+    this EntityTypeBuilder<TEntity> builder,
+    Expression<Func<TEntity, byte>> keySelector,
+    SqlServerProvider serverProvider = SqlServerProvider.SqlServer)
+    where TEntity : class {
+    return new ByteConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
+  }
   
   // public static void AddConstraintsFromDataAnnotations<TEntity>(this EntityTypeBuilder<TEntity> builder,
   //                                                               SupportedConstraintServerType serverType = SupportedConstraintServerType.SqlServer) where TEntity : class {

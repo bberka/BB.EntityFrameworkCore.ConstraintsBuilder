@@ -21,8 +21,11 @@ dotnet add package EfCore.ConstraintsBuilder
 
 ### Supported Data Types 
 - [x] String
-- [x] Int
+- [x] Int (Int32)
 - [x] Long (Int64)
+- [x] Short (Int16)
+- [x] Byte (Int8)
+
 
 ### Supported Database Providers
 - [x] Sql Server
@@ -122,4 +125,31 @@ LongConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, long max)
 LongConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<long> acceptedValues);
 LongConstraintsBuilder<TEntity> EqualOneOf(string uniqueConstraintName, IEnumerable<long> acceptedValues);
 ```
+
+
+### ShortConstraintsBuilder Methods
+```csharp
+ShortConstraintsBuilder<TEntity> NumberInBetween(short min, short max);
+ShortConstraintsBuilder<TEntity> NumberInBetween(string uniqueConstraintName, short min, short max);
+ShortConstraintsBuilder<TEntity> NumberMin(short min);
+ShortConstraintsBuilder<TEntity> NumberMin(string uniqueConstraintName, short min);
+ShortConstraintsBuilder<TEntity> NumberMax(short max);
+ShortConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, short max);
+ShortConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<short> acceptedValues);
+ShortConstraintsBuilder<TEntity> EqualOneOf(string uniqueConstraintName, IEnumerable<short> acceptedValues);
+```
+
+
+### ByteConstraintsBuilder Methods
+```csharp
+ByteConstraintsBuilder<TEntity> NumberInBetween(byte min, byte max);
+ByteConstraintsBuilder<TEntity> NumberInBetween(string uniqueConstraintName, byte min, byte max);
+ByteConstraintsBuilder<TEntity> NumberMin(byte min);
+ByteConstraintsBuilder<TEntity> NumberMin(string uniqueConstraintName, byte min);
+ByteConstraintsBuilder<TEntity> NumberMax(byte max);
+ByteConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, byte max);
+ByteConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<byte> acceptedValues);
+ByteConstraintsBuilder<TEntity> EqualOneOf(string uniqueConstraintName, IEnumerable<byte> acceptedValues);
+```
+
 

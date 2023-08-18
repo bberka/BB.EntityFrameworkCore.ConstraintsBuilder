@@ -16,6 +16,11 @@ public sealed class IntConstraintsBuilder<TEntity> where TEntity : class
     EntityTypeBuilder<TEntity> builder,
     PropertyInfo propertyInfo,
     SqlServerProvider serverProvider) {
+    var isDataTypeMatch = propertyInfo.PropertyType == typeof(int) ||
+                          propertyInfo.PropertyType == typeof(int?);
+    if (!isDataTypeMatch) {
+      throw new ArgumentException("Property type is not int. PropertyName: " + propertyInfo.Name, nameof(propertyInfo));
+    }
     _builder = builder;
     _serverProvider = serverProvider;
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;

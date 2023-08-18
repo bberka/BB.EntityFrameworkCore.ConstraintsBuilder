@@ -16,6 +16,10 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
     EntityTypeBuilder<TEntity> builder,
     PropertyInfo propertyInfo,
     SqlServerProvider serverProvider) {
+    var isDataTypeMatch = propertyInfo.PropertyType == typeof(string);
+    if (!isDataTypeMatch) {
+      throw new ArgumentException("Property type is not string. PropertyName: " + propertyInfo.Name, nameof(propertyInfo));
+    }
     _builder = builder;
     _serverProvider = serverProvider;
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;

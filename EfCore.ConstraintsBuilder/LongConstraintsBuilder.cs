@@ -4,19 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EfCore.ConstraintsBuilder;
 
-public interface ILongConstraintsBuilder<TEntity> where TEntity : class
-{
-  LongConstraintsBuilder<TEntity> NumberInBetween(long min, long max);
-  LongConstraintsBuilder<TEntity> NumberInBetween(string uniqueConstraintName, long min, long max);
-  LongConstraintsBuilder<TEntity> NumberMin(long min);
-  LongConstraintsBuilder<TEntity> NumberMin(string uniqueConstraintName, long min);
-  LongConstraintsBuilder<TEntity> NumberMax(long max);
-  LongConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, long max);
-  LongConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<long> acceptedValues);
-  LongConstraintsBuilder<TEntity> EqualOneOf(string uniqueConstraintName, IEnumerable<long> acceptedValues);
-}
-
-public sealed class LongConstraintsBuilder<TEntity> : ILongConstraintsBuilder<TEntity> where TEntity : class
+public sealed class LongConstraintsBuilder<TEntity> where TEntity : class
 {
   
   private readonly EntityTypeBuilder<TEntity> _builder;
@@ -28,6 +16,11 @@ public sealed class LongConstraintsBuilder<TEntity> : ILongConstraintsBuilder<TE
     EntityTypeBuilder<TEntity> builder,
     PropertyInfo propertyInfo,
     SqlServerProvider serverProvider) {
+    var isDataTypeMatch = propertyInfo.PropertyType == typeof(long) ||
+                          propertyInfo.PropertyType == typeof(long?);
+    if (!isDataTypeMatch) {
+      throw new ArgumentException("Property type is not long. PropertyName: " + propertyInfo.Name, nameof(propertyInfo));
+    }
     _builder = builder;
     _serverProvider = serverProvider;
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;
