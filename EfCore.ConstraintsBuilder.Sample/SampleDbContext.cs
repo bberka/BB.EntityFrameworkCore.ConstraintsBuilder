@@ -25,7 +25,12 @@ public class SampleDbContext : DbContext
 
     modelBuilder.Entity<UserEntity>()
                 .AddConstraintsFor(x => x.AccountValidFor)
-                .NumberInBetween("UserEntity_AccountValidFor_Between", 1, 30);
+                .NumberInBetween("UserEntity_AccountValidFor_Between", 1, 30);    
+    
+    
+    //When using data annotations
+    // modelBuilder.Entity<UserEntity>()
+    //             .AddConstraintsFromDataAnnotations();
   }
 
 
