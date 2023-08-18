@@ -8,16 +8,16 @@ namespace EfCore.ConstraintsBuilder;
 public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 {
   private readonly EntityTypeBuilder<TEntity> _builder;
-  private readonly SupportedConstraintServerType _serverType;
+  private readonly SqlServerProvider _serverProvider;
 
   private readonly string _columnName;
   private readonly string _tableName;
   internal StringConstraintsBuilder(
     EntityTypeBuilder<TEntity> builder,
     PropertyInfo propertyInfo,
-    SupportedConstraintServerType serverType) {
+    SqlServerProvider serverProvider) {
     _builder = builder;
-    _serverType = serverType;
+    _serverProvider = serverProvider;
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;
     _columnName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
   }

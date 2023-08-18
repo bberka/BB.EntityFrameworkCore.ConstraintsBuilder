@@ -9,16 +9,16 @@ public static class ConstrainsBuilderExtensions
   public static StringConstraintsBuilder<TEntity> AddConstraintsFor<TEntity>(
     this EntityTypeBuilder<TEntity> builder,
     Expression<Func<TEntity, string>> keySelector,
-    SupportedConstraintServerType serverType = SupportedConstraintServerType.SqlServer)
+    SqlServerProvider serverProvider = SqlServerProvider.SqlServer)
     where TEntity : class {
-    return new StringConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverType);
+    return new StringConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
   }
   public static IntConstraintsBuilder<TEntity> AddConstraintsFor<TEntity>(
     this EntityTypeBuilder<TEntity> builder,
     Expression<Func<TEntity, int>> keySelector,
-    SupportedConstraintServerType serverType = SupportedConstraintServerType.SqlServer)
+    SqlServerProvider serverProvider = SqlServerProvider.SqlServer)
     where TEntity : class {
-    return new IntConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverType);
+    return new IntConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
   }
   
   

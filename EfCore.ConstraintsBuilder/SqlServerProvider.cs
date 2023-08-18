@@ -1,6 +1,6 @@
 ﻿namespace EfCore.ConstraintsBuilder;
 
-public enum SupportedConstraintServerType
+public enum SqlServerProvider
 {
   SqlServer
 }
