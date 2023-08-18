@@ -22,6 +22,7 @@ dotnet add package EfCore.ConstraintsBuilder
 ### Supported Data Types 
 - [x] String
 - [x] Int
+- [x] Long (Int64)
 
 ### Supported Database Providers
 - [x] Sql Server
@@ -78,34 +79,47 @@ Example: `User_Name_Regex_UnqiueGuid`
 
 ### StringConstraintsBuilder Methods
 ```csharp
-  StringConstraintsBuilder<TEntity> EmailAddress();
-  StringConstraintsBuilder<TEntity> EmailAddress(string constraintName );
-  StringConstraintsBuilder<TEntity> Url();
-  StringConstraintsBuilder<TEntity> Url(string constraintName);
-  StringConstraintsBuilder<TEntity> PhoneNumber();
-  StringConstraintsBuilder<TEntity> PhoneNumber(string constraintName);
-  StringConstraintsBuilder<TEntity> CreditCard();
-  StringConstraintsBuilder<TEntity> CreditCard(string constraintName);
-  StringConstraintsBuilder<TEntity> RegexExpression(string regex);
-  StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex);
-  StringConstraintsBuilder<TEntity> MinLength(int minLength);
-  StringConstraintsBuilder<TEntity> MinLength(string constraintName, int minLength);
-  StringConstraintsBuilder<TEntity> MaxLength(int maxLength);
-  StringConstraintsBuilder<TEntity> MaxLength(string constraintName, int maxLength);
-  StringConstraintsBuilder<TEntity> LengthBetween(int minLength, int maxLength);
-  StringConstraintsBuilder<TEntity> LengthBetween(string constraintName, int minLength, int maxLength);
-  StringConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<string> acceptedValues);
-  StringConstraintsBuilder<TEntity> EqualOneOf(string constraintName,IEnumerable<string> acceptedValues);
+StringConstraintsBuilder<TEntity> EmailAddress();
+StringConstraintsBuilder<TEntity> EmailAddress(string constraintName );
+StringConstraintsBuilder<TEntity> Url();
+StringConstraintsBuilder<TEntity> Url(string constraintName);
+StringConstraintsBuilder<TEntity> PhoneNumber();
+StringConstraintsBuilder<TEntity> PhoneNumber(string constraintName);
+StringConstraintsBuilder<TEntity> CreditCard();
+StringConstraintsBuilder<TEntity> CreditCard(string constraintName);
+StringConstraintsBuilder<TEntity> RegexExpression(string regex);
+StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex);
+StringConstraintsBuilder<TEntity> MinLength(int minLength);
+StringConstraintsBuilder<TEntity> MinLength(string constraintName, int minLength);
+StringConstraintsBuilder<TEntity> MaxLength(int maxLength);
+StringConstraintsBuilder<TEntity> MaxLength(string constraintName, int maxLength);
+StringConstraintsBuilder<TEntity> LengthBetween(int minLength, int maxLength);
+StringConstraintsBuilder<TEntity> LengthBetween(string constraintName, int minLength, int maxLength);
+StringConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<string> acceptedValues);
+StringConstraintsBuilder<TEntity> EqualOneOf(string constraintName,IEnumerable<string> acceptedValues);
 ```
 
 ### IntConstraintsBuilder Methods
 ```csharp
-  IntConstraintsBuilder<TEntity> NumberInBetween(int min, int max);
-  IntConstraintsBuilder<TEntity> NumberInBetween(string constraintName, int min, int max);
-  IntConstraintsBuilder<TEntity> NumberMin(int min);
-  IntConstraintsBuilder<TEntity> NumberMin(string constraintName, int min);
-  IntConstraintsBuilder<TEntity> NumberMax(int max);
-  IntConstraintsBuilder<TEntity> NumberMax(string constraintName, int max);
-  IntConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<int> acceptedValues);
-  IntConstraintsBuilder<TEntity> EqualOneOf(string constraintName, IEnumerable<int> acceptedValues);
+IntConstraintsBuilder<TEntity> NumberInBetween(int min, int max);
+IntConstraintsBuilder<TEntity> NumberInBetween(string constraintName, int min, int max);
+IntConstraintsBuilder<TEntity> NumberMin(int min);
+IntConstraintsBuilder<TEntity> NumberMin(string constraintName, int min);
+IntConstraintsBuilder<TEntity> NumberMax(int max);
+IntConstraintsBuilder<TEntity> NumberMax(string constraintName, int max);
+IntConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<int> acceptedValues);
+IntConstraintsBuilder<TEntity> EqualOneOf(string constraintName, IEnumerable<int> acceptedValues);
 ```
+
+### LongConstraintsBuilder Methods
+```csharp
+LongConstraintsBuilder<TEntity> NumberInBetween(long min, long max);
+LongConstraintsBuilder<TEntity> NumberInBetween(string uniqueConstraintName, long min, long max);
+LongConstraintsBuilder<TEntity> NumberMin(long min);
+LongConstraintsBuilder<TEntity> NumberMin(string uniqueConstraintName, long min);
+LongConstraintsBuilder<TEntity> NumberMax(long max);
+LongConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, long max);
+LongConstraintsBuilder<TEntity> EqualOneOf(IEnumerable<long> acceptedValues);
+LongConstraintsBuilder<TEntity> EqualOneOf(string uniqueConstraintName, IEnumerable<long> acceptedValues);
+```
+
