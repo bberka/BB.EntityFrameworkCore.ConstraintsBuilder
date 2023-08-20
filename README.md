@@ -88,8 +88,6 @@ Example: `User_Name_Regex_UnqiueGuid`
   StringConstraintsBuilder<TEntity> Url(string constraintName);
   StringConstraintsBuilder<TEntity> PhoneNumber();
   StringConstraintsBuilder<TEntity> PhoneNumber(string constraintName);
-  StringConstraintsBuilder<TEntity> CreditCard();
-  StringConstraintsBuilder<TEntity> CreditCard(string constraintName);
   StringConstraintsBuilder<TEntity> RegexExpression(string regex);
   StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex);
   StringConstraintsBuilder<TEntity> MinLength(int minLength);
