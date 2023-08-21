@@ -30,6 +30,13 @@ dotnet add package EfCore.ConstraintsBuilder
 ### Supported Database Providers
 - [x] Sql Server
 
+### Warning
+This library is in early development stage, use it at your own risk.
+
+If you are planning to reference constraints from anywhere else it is highly recommended to specify constraint name explicitly.
+
+Auto generated constraint names may change in future versions.
+
 ## Usage with Fluent API
 
 ### Basic User Entity
@@ -79,6 +86,8 @@ Currently supported builder methods listed below, more will be added in future.
 
 If no constraint name provided for a method, a unique constraint name will be generated.
 Example: `User_Name_Regex_UnqiueGuid`
+
+
 
 ### StringConstraintsBuilder Methods
 ```csharp
