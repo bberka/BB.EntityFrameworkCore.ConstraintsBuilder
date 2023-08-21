@@ -54,15 +54,6 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
     return this;
   }
 
-  public StringConstraintsBuilder<TEntity> CreditCard() => CreditCard(_builder.CreateUniqueConstraintName(_columnName, nameof(CreditCard)));
-
-  public StringConstraintsBuilder<TEntity> CreditCard(string constraintName) {
-    if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalTool.CreditCardRegex}'"));
-    return this;
-  }
-
   public StringConstraintsBuilder<TEntity> RegexExpression(string regex) => RegexExpression(_builder.CreateUniqueConstraintName(_columnName, nameof(RegexExpression)), regex);
 
   public StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex) {
