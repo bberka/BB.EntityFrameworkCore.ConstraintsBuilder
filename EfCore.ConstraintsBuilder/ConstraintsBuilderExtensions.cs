@@ -45,6 +45,14 @@ public static class ConstraintsBuilderExtensions
     return new ByteConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
   }
   
+  public static DateTimeConstraintsBuilder<TEntity> AddConstraintsFor<TEntity>(
+    this EntityTypeBuilder<TEntity> builder,
+    Expression<Func<TEntity, DateTime>> keySelector,
+    SqlServerProvider serverProvider = SqlServerProvider.SqlServer)
+    where TEntity : class {
+    return new DateTimeConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess(), serverProvider);
+  }
+  
   // public static void AddConstraintsFromDataAnnotations<TEntity>(this EntityTypeBuilder<TEntity> builder,
   //                                                               SupportedConstraintServerType serverType = SupportedConstraintServerType.SqlServer) where TEntity : class {
   //   var properties = typeof(TEntity).GetProperties();
