@@ -229,5 +229,4 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
     _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] = [{propertyName}]"));
     return this;
   }
-  
 }

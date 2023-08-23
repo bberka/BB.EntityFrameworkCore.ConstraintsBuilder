@@ -26,6 +26,7 @@ dotnet add package EfCore.ConstraintsBuilder
 - [x] Short (Int16)
 - [x] Byte (Int8)
 - [x] DateTime
+- [x] Guid
 
 
 ### Supported Database Providers
@@ -201,4 +202,112 @@ DateTimeConstraintsBuilder<TEntity> TimeMin(TimeSpan min);
 DateTimeConstraintsBuilder<TEntity> TimeMin(string uniqueConstraintName, TimeSpan min);
 DateTimeConstraintsBuilder<TEntity> TimeMax(TimeSpan max);
 DateTimeConstraintsBuilder<TEntity> TimeMax(string uniqueConstraintName, TimeSpan max);
+DateTimeConstraintsBuilder<TEntity> NotNull();
+DateTimeConstraintsBuilder<TEntity> NotNull(string uniqueConstraintName);
+DateTimeConstraintsBuilder<TEntity> NotEmpty();
+DateTimeConstraintsBuilder<TEntity> NotEmpty(string uniqueConstraintName);
+DateTimeConstraintsBuilder<TEntity> Empty();
+DateTimeConstraintsBuilder<TEntity> Empty(string uniqueConstraintName);
+DateTimeConstraintsBuilder<TEntity> NotEmptyOrNull();
+DateTimeConstraintsBuilder<TEntity> NotEmptyOrNull(string uniqueConstraintName);
+DateTimeConstraintsBuilder<TEntity> EmptyOrNull();
+DateTimeConstraintsBuilder<TEntity> EmptyOrNull(string uniqueConstraintName);
+DateTimeConstraintsBuilder<TEntity> EqualsDate(DateOnly value);
+DateTimeConstraintsBuilder<TEntity> EqualsDate(string uniqueConstraintName, DateOnly value);
+DateTimeConstraintsBuilder<TEntity> NotEqualsDate(DateOnly value);
+DateTimeConstraintsBuilder<TEntity> NotEqualsDate(string uniqueConstraintName, DateOnly value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanDate(DateOnly value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanDate(string uniqueConstraintName, DateOnly value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualsDate(DateOnly value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualDate(string uniqueConstraintName, DateOnly value);
+DateTimeConstraintsBuilder<TEntity> LessThanDate(DateOnly value);
+DateTimeConstraintsBuilder<TEntity> LessThanDate(string uniqueConstraintName, DateOnly value);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEquals(DateOnly value);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqual(string uniqueConstraintName, DateOnly value);
+DateTimeConstraintsBuilder<TEntity> EqualsTime(TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> EqualsTime(string uniqueConstraintName, TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> NotEqualsTime(TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> NotEqualsTime(string uniqueConstraintName, TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanTime(TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanTime(string uniqueConstraintName, TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualTime(TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualTime(string uniqueConstraintName, TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> LessThanTime(TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> LessThanTime(string uniqueConstraintName, TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualTime(TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualTime(string uniqueConstraintName, TimeSpan value);
+DateTimeConstraintsBuilder<TEntity> EqualsDateTime(DateTime value);
+DateTimeConstraintsBuilder<TEntity> EqualsDateTime(string uniqueConstraintName, DateTime value);
+DateTimeConstraintsBuilder<TEntity> NotEqualsDateTime(DateTime value);
+DateTimeConstraintsBuilder<TEntity> NotEqualsDateTime(string uniqueConstraintName, DateTime value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanDateTime(DateTime value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanDateTime(string uniqueConstraintName, DateTime value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualDateTime(DateTime value);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualDateTime(string uniqueConstraintName, DateTime value);
+DateTimeConstraintsBuilder<TEntity> LessThanDateTime(DateTime value);
+DateTimeConstraintsBuilder<TEntity> LessThanDateTime(string uniqueConstraintName, DateTime value);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualDateTime(DateTime value);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualDateTime(string uniqueConstraintName, DateTime value);
+DateTimeConstraintsBuilder<TEntity> EqualsDateTimeProperty(Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> EqualsDateTimeProperty(string constraintName, Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> NotEqualsDateTimeProperty(Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> NotEqualsDateTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanDateTimeProperty(Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanDateTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualDateTimeProperty(Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualDateTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanDateTimeProperty(Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanDateTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualDateTimeProperty(Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualDateTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, DateTime>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> EqualsDateProperty(Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> EqualsDateProperty(string constraintName, Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> NotEqualsDateProperty(Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> NotEqualsDateProperty(string uniqueConstraintName, Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanDateProperty(Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanDateProperty(string uniqueConstraintName, Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualDateProperty(Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualDateProperty(string uniqueConstraintName, Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanDateProperty(Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanDateProperty(string uniqueConstraintName, Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualDateProperty(Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualDateProperty(string uniqueConstraintName, Expression<Func<TEntity, DateOnly>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> EqualsTimeProperty(Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> EqualsTimeProperty(string constraintName, Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> NotEqualsTimeProperty(Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> NotEqualsTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanTimeProperty(Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualTimeProperty(Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> GreaterThanOrEqualTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanTimeProperty(Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualTimeProperty(Expression<Func<TEntity, TimeSpan>> propertySelector);
+DateTimeConstraintsBuilder<TEntity> LessThanOrEqualTimeProperty(string uniqueConstraintName, Expression<Func<TEntity, TimeSpan>> propertySelector);
+```
+
+### GuidConstraintsBuilder Methods
+```csharp
+GuidConstraintsBuilder<TEntity> NotNull();
+GuidConstraintsBuilder<TEntity> NotNull(string uniqueConstraintName);
+GuidConstraintsBuilder<TEntity> NotEmpty();
+GuidConstraintsBuilder<TEntity> NotEmpty(string uniqueConstraintName);
+GuidConstraintsBuilder<TEntity> Empty();
+GuidConstraintsBuilder<TEntity> Empty(string uniqueConstraintName);
+GuidConstraintsBuilder<TEntity> NotEmptyOrNull();
+GuidConstraintsBuilder<TEntity> NotEmptyOrNull(string uniqueConstraintName);
+GuidConstraintsBuilder<TEntity> EmptyOrNull();
+GuidConstraintsBuilder<TEntity> EmptyOrNull(string uniqueConstraintName);
+GuidConstraintsBuilder<TEntity> EqualsProperty(Expression<Func<TEntity, Guid>> propertySelector);
+GuidConstraintsBuilder<TEntity> EqualsProperty(string constraintName, Expression<Func<TEntity, Guid>> propertySelector);
+GuidConstraintsBuilder<TEntity> NotEqualsProperty(Expression<Func<TEntity, Guid>> propertySelector);
+GuidConstraintsBuilder<TEntity> NotEqualsProperty(string uniqueConstraintName, Expression<Func<TEntity, Guid>> propertySelector);
+GuidConstraintsBuilder<TEntity> EqualsValue(Guid value);
+GuidConstraintsBuilder<TEntity> EqualsValue(string uniqueConstraintName, Guid value);
+GuidConstraintsBuilder<TEntity> NotEqualsValue(Guid value);
+GuidConstraintsBuilder<TEntity> NotEqualsValue(string uniqueConstraintName, Guid value);
+GuidConstraintsBuilder<TEntity> EqualsOneOf(IEnumerable<Guid> values);
+GuidConstraintsBuilder<TEntity> EqualsOneOf(string uniqueConstraintName, IEnumerable<Guid> values);
+GuidConstraintsBuilder<TEntity> NotEqualsOneOf(IEnumerable<Guid> values);
+GuidConstraintsBuilder<TEntity> NotEqualsOneOf(string uniqueConstraintName, IEnumerable<Guid> values);
 ```
