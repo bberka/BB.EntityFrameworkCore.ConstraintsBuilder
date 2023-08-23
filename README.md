@@ -32,12 +32,48 @@ dotnet add package EfCore.ConstraintsBuilder
 ### Supported Database Providers
 - [x] Sql Server
 
-### Warning
-This library is in early development stage, use it at your own risk.
+### Warnings and Disclaimer
+This library is in early development stage not all functions is tested, use it at your own risk.
 
 If you are planning to reference constraints from anywhere else it is highly recommended to specify constraint name explicitly.
 
 Auto generated constraint names may change in future versions.
+
+
+### What is this library for?
+
+This library is for adding constraints to your entities with fluent api. 
+
+EntityFrameworkCore allows to add constraints however it is easy to make mistakes because you have to write plain SQL and it is hard to read. 
+
+By using this library you are avoiding possible errors and making your code more readable.
+
+### Why not use DataAnnotations or FluentValidation instead ?
+
+DataAnnotations and FluentValidation are great libraries but they are in different layer than EntityFrameworkCore.
+
+Constraints purpose is to be applied directly into database. Even if your application layer is validating data, it is still possible to insert invalid data to database.
+This library is there for you to avoid that.
+
+If a constraint rule is not matched database will throw an exception and your application will not insert invalid data to database.
+It is recommended to catch that exception explicitly and handle it properly.
+
+If you are trying to completely avoid exceptions, you should consider using DataAnnotations or FluentValidation or any other validation library.
+
+### How about performance ?
+
+This library only initialized once on migration creation. It is not affecting performance of your application directly. 
+
+However since library adds constraints to database it may affect performance of your database of Insert or Update operations.
+Avoid using complex constraints and stick with simple ones.
+
+If performance of your database is a major concern for you, you should consider using this library with caution or not use it at all.
+
+### Tips
+- Avoid using complex constraints
+- Avoid using constraints on nullable properties, all tho it is possible to use constraints on nullable properties, it is not recommended. My cause unexpected errors.
+- Avoid using constraints on properties that is used in queries frequently to improve performance.
+- Instead of string types use enum types when you can and validate data on application layer or let EntityFrameworkCore to handle it for you by using EnumToStringConverter or EnumToNumberConverter.
 
 ## Usage with Fluent API
 
@@ -87,7 +123,10 @@ public class SampleDbContext : DbContext
 Currently supported builder methods listed below, more will be added in future.
 
 If no constraint name provided for a method, a unique constraint name will be generated.
-Example: `User_Name_Regex_UnqiueGuid`
+
+Format: `%TableName%_%ColumnName%_%ConstraintFunctionName%_%ConstraintIndex%`
+
+Example: `UserEntity_Name_Regex_1`
 
 
 
