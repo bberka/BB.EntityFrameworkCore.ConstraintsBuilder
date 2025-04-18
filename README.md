@@ -11,12 +11,12 @@ This project licensed under [MIT](https://choosealicense.com/licenses/mit/) lice
 
 Nuget Package Manager
 ```bash
-Install-Package EfCore.ConstraintsBuilder
+Install-Package BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer
 ```
 
 CLI
 ```bash
-dotnet add package EfCore.ConstraintsBuilder
+dotnet add package BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer
 ```
 
 ### Supported Data Types 
