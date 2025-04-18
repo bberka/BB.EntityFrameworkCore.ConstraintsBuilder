@@ -15,7 +15,7 @@ public static class ConstraintsBuilderExtensions
 		return new StringConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess());
 	}
 
-	public static NumberConstraintsBuilder<TEntity,TProperty> AddConstraintsFor<TEntity, TProperty>(
+	public static NumberConstraintsBuilder<TEntity, TProperty> AddConstraintsFor<TEntity, TProperty>(
 		this EntityTypeBuilder<TEntity> builder,
 		Expression<Func<TEntity, TProperty?>> keySelector)
 		where TEntity : class
@@ -29,7 +29,7 @@ public static class ConstraintsBuilderExtensions
 		where TEntity : class {
 		return new DateTimeConstraintsBuilder<TEntity>(builder, keySelector.GetPropertyAccess());
 	}
-	
+
 	public static GuidConstraintsBuilder<TEntity> AddConstraintsFor<TEntity>(
 		this EntityTypeBuilder<TEntity> builder,
 		Expression<Func<TEntity, Guid?>> keySelector)

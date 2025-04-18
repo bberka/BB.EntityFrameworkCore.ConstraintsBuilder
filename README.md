@@ -1,5 +1,3 @@
-
-
 # BB.EntityFrameworkCore.ConstraintsBuilder
 
 A simple library for applying database constraints with Entity Framework Core's Fluent API.
@@ -31,72 +29,99 @@ dotnet add package BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer
 
 ### Supported Database Providers
 
-*   ✅ SQL Server
+* ✅ SQL Server
 
 ### Supported Data Types
 
 The library aims to provide constraint building capabilities for fundamental data types:
 
-*   ✅ String
-*   ✅ Numeric Types (including `int`, `double`, `decimal`, etc.)
-*   ✅ DateTime
-*   ✅ Guid
+* ✅ String
+* ✅ Numeric Types (including `int`, `double`, `decimal`, etc.)
+* ✅ DateTime
+* ✅ Guid
 
 ## Why Use This Library?
 
-Entity Framework Core provides the ability to add database constraints using the Fluent API, but it often requires writing raw SQL strings. This can be error-prone and reduces code readability.
+Entity Framework Core provides the ability to add database constraints using the Fluent API, but it often requires
+writing raw SQL strings. This can be error-prone and reduces code readability.
 
-`BB.EntityFrameworkCore.ConstraintsBuilder` simplifies this process by providing a more strongly-typed and fluent way to define common constraints like `CHECK` constraints directly within your `DbContext`'s `OnModelCreating` method.
+`BB.EntityFrameworkCore.ConstraintsBuilder` simplifies this process by providing a more strongly-typed and fluent way to
+define common constraints like `CHECK` constraints directly within your `DbContext`'s `OnModelCreating` method.
 
 By using this library, you can:
 
-*   **Reduce Errors:** Avoid syntax errors common in raw SQL constraints.
-*   **Improve Readability:** Define constraints using C# syntax that is often easier to understand and maintain.
-*   **Enforce Data Integrity at the Database Level:** Ensure that invalid data cannot be inserted or updated in your database, even if application-level validation is bypassed.
+* **Reduce Errors:** Avoid syntax errors common in raw SQL constraints.
+* **Improve Readability:** Define constraints using C# syntax that is often easier to understand and maintain.
+* **Enforce Data Integrity at the Database Level:** Ensure that invalid data cannot be inserted or updated in your
+  database, even if application-level validation is bypassed.
 
 ## How it Differs from Validation Libraries (DataAnnotations, FluentValidation)
 
-Validation libraries like DataAnnotations and FluentValidation operate at the **application layer**. They are excellent for providing user feedback and preventing invalid data from reaching your data access layer.
+Validation libraries like DataAnnotations and FluentValidation operate at the **application layer**. They are excellent
+for providing user feedback and preventing invalid data from reaching your data access layer.
 
-Database constraints, on the other hand, operate at the **database layer**. They are the final line of defense for data integrity. If data attempts to be inserted or updated through any means (your application, direct SQL scripts, other applications), the database will enforce the constraint.
+Database constraints, on the other hand, operate at the **database layer**. They are the final line of defense for data
+integrity. If data attempts to be inserted or updated through any means (your application, direct SQL scripts, other
+applications), the database will enforce the constraint.
 
-*   **Application Validation:** Prevents bad data from being *sent* to the database.
-*   **Database Constraints:** Prevents bad data from being *saved* in the database.
+* **Application Validation:** Prevents bad data from being *sent* to the database.
+* **Database Constraints:** Prevents bad data from being *saved* in the database.
 
 It is highly recommended to use both application-level validation and database constraints for robust data integrity.
 
-When a database constraint is violated, your application will typically receive an exception. It's crucial to handle these exceptions gracefully in your application code.
+When a database constraint is violated, your application will typically receive an exception. It's crucial to handle
+these exceptions gracefully in your application code.
 
 ## Performance Considerations
 
-This library's impact on performance is primarily during **migration creation** or **database initialization**, as it defines the constraints in the database schema. The library itself does not introduce runtime overhead during typical application operations (reading or writing data), other than adding the constraint definitions.
+This library's impact on performance is primarily during **migration creation** or **database initialization**, as it
+defines the constraints in the database schema. The library itself does not introduce runtime overhead during typical
+application operations (reading or writing data), other than adding the constraint definitions.
 
-However, the **constraints themselves** added to the database can affect the performance of `INSERT` and `UPDATE` operations. The database has to evaluate the constraint for every affected row.
+However, the **constraints themselves** added to the database can affect the performance of `INSERT` and `UPDATE`
+operations. The database has to evaluate the constraint for every affected row.
 
-*   **Simple Constraints:** Constraints like checking if a number is positive or a string has a minimum length usually have a minimal performance impact.
-*   **Complex Constraints:** Constraints involving complex logic, multiple columns, or functions might introduce noticeable overhead.
+* **Simple Constraints:** Constraints like checking if a number is positive or a string has a minimum length usually
+  have a minimal performance impact.
+* **Complex Constraints:** Constraints involving complex logic, multiple columns, or functions might introduce
+  noticeable overhead.
 
-If database write performance is a critical concern, use complex constraints with caution or consider alternative data integrity strategies.
+If database write performance is a critical concern, use complex constraints with caution or consider alternative data
+integrity strategies.
 
 ## Usage Tips
 
-*   **Specify Constraint Names:** For easier debugging and migration management, it is highly recommended to explicitly define constraint names when using the library, especially if you might need to reference them later. Auto-generated names can change in future versions.
-*   **Avoid Complex Constraints:** Stick to simple and easily verifiable conditions within your constraints.
-*   **Nullable Properties:** While the library may allow adding constraints to nullable properties, exercise caution. The behavior of `CHECK` constraints with `NULL` values can sometimes be counter-intuitive (a `NULL` value often passes a `CHECK` constraint unless specifically handled, e.g., `WHERE columnName IS NOT NULL AND columnName > 0`). Explicitly defining the behavior for `NULL` is important if you constrain nullable columns.
-*   **Frequently Queried Columns:** Adding constraints to columns heavily used in `WHERE` clauses of frequently executed queries might slightly impact query plan generation, although the effect is often negligible for simple constraints. Focus on correctness first and optimize if profiling reveals issues.
-*   **Leverage Enum Converters:** For properties representing a fixed set of values, consider using `EnumToStringConverter` or `EnumToNumberConverter` with EF Core. This leverages the type system for validation and allows EF Core to handle the underlying database representation, often eliminating the need for manual constraints on those specific columns.
+* **Specify Constraint Names:** For easier debugging and migration management, it is highly recommended to explicitly
+  define constraint names when using the library, especially if you might need to reference them later. Auto-generated
+  names can change in future versions.
+* **Avoid Complex Constraints:** Stick to simple and easily verifiable conditions within your constraints.
+* **Nullable Properties:** While the library may allow adding constraints to nullable properties, exercise caution. The
+  behavior of `CHECK` constraints with `NULL` values can sometimes be counter-intuitive (a `NULL` value often passes a
+  `CHECK` constraint unless specifically handled, e.g., `WHERE columnName IS NOT NULL AND columnName > 0`). Explicitly
+  defining the behavior for `NULL` is important if you constrain nullable columns.
+* **Frequently Queried Columns:** Adding constraints to columns heavily used in `WHERE` clauses of frequently executed
+  queries might slightly impact query plan generation, although the effect is often negligible for simple constraints.
+  Focus on correctness first and optimize if profiling reveals issues.
+* **Leverage Enum Converters:** For properties representing a fixed set of values, consider using
+  `EnumToStringConverter` or `EnumToNumberConverter` with EF Core. This leverages the type system for validation and
+  allows EF Core to handle the underlying database representation, often eliminating the need for manual constraints on
+  those specific columns.
 
 ## Early Development Warning
 
-This library is currently in an early stage of development. While efforts are made to test functionality, not all scenarios may be fully covered or optimized.
+This library is currently in an early stage of development. While efforts are made to test functionality, not all
+scenarios may be fully covered or optimized.
 
-*   **Use with Caution:** Evaluate its suitability for your project's needs.
-*   **Report Issues:** If you encounter any bugs or unexpected behavior, please report them on the GitHub repository.
-*   **Contributions Welcome:** Contributions are welcome to help improve the library!
+* **Use with Caution:** Evaluate its suitability for your project's needs.
+* **Report Issues:** If you encounter any bugs or unexpected behavior, please report them on the GitHub repository.
+* **Contributions Welcome:** Contributions are welcome to help improve the library!
+
 ---
+
 ## Usage with Fluent API
 
 ### Basic User Entity
+
 ```csharp
 public class UserEntity
 {
@@ -109,6 +134,7 @@ public class UserEntity
 ```
 
 ### Applying Constraints to User Entity inside DbContext
+
 ```csharp
 public class SampleDbContext : DbContext
 {
@@ -139,6 +165,7 @@ public class SampleDbContext : DbContext
 ```
 
 ## Builders and methods
+
 Currently supported builder methods listed below, more will be added in future.
 
 If no constraint name provided for a method, a unique constraint name will be generated.
@@ -147,9 +174,8 @@ Format: `%TableName%_%ColumnName%_%ConstraintFunctionName%_%ConstraintIndex%`
 
 Example: `UserEntity_Name_Regex_1`
 
-
-
 ### StringConstraintsBuilder Methods
+
 ```csharp
 StringConstraintsBuilder<TEntity> EmailAddress();
 StringConstraintsBuilder<TEntity> EmailAddress(string constraintName);
@@ -195,8 +221,8 @@ StringConstraintsBuilder<TEntity> NotEqualProperty(Expression<Func<TEntity, stri
 StringConstraintsBuilder<TEntity> NotEqualProperty(string constraintName, Expression<Func<TEntity, string>> propertySelector);
 ```
 
-
 ### NumberConstraintsBuilder Methods
+
 ```csharp
 ByteConstraintsBuilder<TEntity, TProperty> NumberInBetween(TProperty min, TProperty max);
 ByteConstraintsBuilder<TEntity, TProperty> NumberInBetween(string uniqueConstraintName, TProperty min, TProperty max);
@@ -208,8 +234,8 @@ ByteConstraintsBuilder<TEntity, TProperty> EqualOneOf(IEnumerable<TProperty> acc
 ByteConstraintsBuilder<TEntity, TProperty> EqualOneOf(string uniqueConstraintName, IEnumerable<TProperty> acceptedValues);
 ```
 
-
 ### DateTimeConstraintsBuilder Methods
+
 ```csharp
 DateTimeConstraintsBuilder<TEntity> DateInBetween(DateTime min, DateTime max);
 DateTimeConstraintsBuilder<TEntity> DateInBetween(string uniqueConstraintName, DateTime min, DateTime max);
@@ -308,6 +334,7 @@ DateTimeConstraintsBuilder<TEntity> LessThanOrEqualTimeProperty(string uniqueCon
 ```
 
 ### GuidConstraintsBuilder Methods
+
 ```csharp
 GuidConstraintsBuilder<TEntity> NotNull();
 GuidConstraintsBuilder<TEntity> NotNull(string uniqueConstraintName);
