@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EfCore.ConstraintsBuilder;
+namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
 
 public static class InternalTool
 {

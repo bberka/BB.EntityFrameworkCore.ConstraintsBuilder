@@ -3,28 +3,25 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EfCore.ConstraintsBuilder;
+namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
 
 
 public sealed class ShortConstraintsBuilder<TEntity> where TEntity : class
 {
   
   private readonly EntityTypeBuilder<TEntity> _builder;
-  private readonly SqlServerProvider _serverProvider;
 
   private readonly string _columnName;
   private readonly string _tableName;
   internal ShortConstraintsBuilder(
     EntityTypeBuilder<TEntity> builder,
-    PropertyInfo propertyInfo,
-    SqlServerProvider serverProvider) {
+    PropertyInfo propertyInfo) {
     var isDataTypeMatch = propertyInfo.PropertyType == typeof(short) ||
                           propertyInfo.PropertyType == typeof(short?);
     if (!isDataTypeMatch) {
       throw new ArgumentException("Property type is not short. PropertyName: " + propertyInfo.Name, nameof(propertyInfo));
     }
     _builder = builder;
-    _serverProvider = serverProvider;
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;
     _columnName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
   }

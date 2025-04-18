@@ -4,28 +4,25 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EfCore.ConstraintsBuilder;
+namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
 
 
 public sealed class ByteConstraintsBuilder<TEntity> where TEntity : class
 {
   
   private readonly EntityTypeBuilder<TEntity> _builder;
-  private readonly SqlServerProvider _serverProvider;
 
   private readonly string _columnName;
   private readonly string _tableName;
   internal ByteConstraintsBuilder(
     EntityTypeBuilder<TEntity> builder,
-    PropertyInfo propertyInfo,
-    SqlServerProvider serverProvider) {
+    PropertyInfo propertyInfo) {
     var isDataTypeMatch = propertyInfo.PropertyType == typeof(byte) ||
                           propertyInfo.PropertyType == typeof(byte?);
     if (!isDataTypeMatch) {
       throw new ArgumentException("Property type is not byte. PropertyName: " + propertyInfo.Name, nameof(propertyInfo));
     }
     _builder = builder;
-    _serverProvider = serverProvider;
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;
     _columnName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
   }
@@ -40,7 +37,6 @@ public sealed class ByteConstraintsBuilder<TEntity> where TEntity : class
     _builder.ToTable(x => x.HasCheckConstraint(uniqueConstraintName, $"[{_columnName}] >= {min} "));
     return this;
   }
-
   
   public ByteConstraintsBuilder<TEntity> NumberMax(byte max)  => NumberMax(_builder.CreateUniqueConstraintName(_columnName, nameof(NumberMax)), max);
   public ByteConstraintsBuilder<TEntity> NumberMax(string uniqueConstraintName, byte max) {

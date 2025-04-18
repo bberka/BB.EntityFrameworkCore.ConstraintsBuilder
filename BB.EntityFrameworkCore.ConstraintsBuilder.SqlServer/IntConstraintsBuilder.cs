@@ -2,27 +2,24 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EfCore.ConstraintsBuilder;
+namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
 
 
 public sealed class IntConstraintsBuilder<TEntity> where TEntity : class
 {
   private readonly EntityTypeBuilder<TEntity> _builder;
-  private readonly SqlServerProvider _serverProvider;
 
   private readonly string _columnName;
   private readonly string _tableName;
   internal IntConstraintsBuilder(
     EntityTypeBuilder<TEntity> builder,
-    PropertyInfo propertyInfo,
-    SqlServerProvider serverProvider) {
+    PropertyInfo propertyInfo) {
     var isDataTypeMatch = propertyInfo.PropertyType == typeof(int) ||
                           propertyInfo.PropertyType == typeof(int?);
     if (!isDataTypeMatch) {
       throw new ArgumentException("Property type is not int. PropertyName: " + propertyInfo.Name, nameof(propertyInfo));
     }
     _builder = builder;
-    _serverProvider = serverProvider;
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;
     _columnName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
   }

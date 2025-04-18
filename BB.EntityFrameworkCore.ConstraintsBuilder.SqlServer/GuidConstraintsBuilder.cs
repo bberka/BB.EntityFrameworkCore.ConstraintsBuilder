@@ -4,20 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EfCore.ConstraintsBuilder;
+namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
 
 public sealed class GuidConstraintsBuilder<TEntity>  where TEntity : class
 {
   private readonly EntityTypeBuilder<TEntity> _builder;
-  private readonly SqlServerProvider _serverProvider;
 
   private readonly string _columnName;
   private readonly string _tableName;
 
   internal GuidConstraintsBuilder(
     EntityTypeBuilder<TEntity> builder,
-    PropertyInfo propertyInfo,
-    SqlServerProvider serverProvider) {
+    PropertyInfo propertyInfo) {
     var isDataTypeMatch = propertyInfo.PropertyType == typeof(Guid) ||
                           propertyInfo.PropertyType == typeof(Guid?);
     if (!isDataTypeMatch) {
@@ -25,7 +23,6 @@ public sealed class GuidConstraintsBuilder<TEntity>  where TEntity : class
     }
 
     _builder = builder;
-    _serverProvider = serverProvider;
     _tableName = _builder.Metadata.GetTableName() ?? typeof(TEntity).Name;
     _columnName = _builder.Metadata.GetProperty(propertyInfo.Name).GetColumnName();
   }

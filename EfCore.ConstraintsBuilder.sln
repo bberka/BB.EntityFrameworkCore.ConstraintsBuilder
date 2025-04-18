@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCore.ConstraintsBuilder", "EfCore.ConstraintsBuilder\EfCore.ConstraintsBuilder.csproj", "{E9595B67-98C1-4D2F-A8D7-C2C1156C9DF6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCore.ConstraintsBuilder.Sample", "EfCore.ConstraintsBuilder.Sample\EfCore.ConstraintsBuilder.Sample.csproj", "{CEED48EA-7666-4023-B7CE-E1386B0A77D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer", "BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer\BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.csproj", "{E9595B67-98C1-4D2F-A8D7-C2C1156C9DF6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C5F11076-799D-4BC4-B6A0-A1551347086F}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,9 +18,5 @@ Global
 		{E9595B67-98C1-4D2F-A8D7-C2C1156C9DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9595B67-98C1-4D2F-A8D7-C2C1156C9DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9595B67-98C1-4D2F-A8D7-C2C1156C9DF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEED48EA-7666-4023-B7CE-E1386B0A77D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEED48EA-7666-4023-B7CE-E1386B0A77D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEED48EA-7666-4023-B7CE-E1386B0A77D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEED48EA-7666-4023-B7CE-E1386B0A77D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
