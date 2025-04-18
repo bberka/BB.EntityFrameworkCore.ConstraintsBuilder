@@ -1,10 +1,10 @@
 ﻿using System.Numerics;
 using System.Reflection;
-using BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Internal;
 
-namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Builder;
+namespace ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Builder;
 
 public sealed class NumberConstraintsBuilder<TEntity, TProperty> where TEntity : class where TProperty : INumber<TProperty>
 {

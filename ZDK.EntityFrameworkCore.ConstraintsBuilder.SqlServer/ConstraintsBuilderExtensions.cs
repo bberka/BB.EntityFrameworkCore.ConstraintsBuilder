@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
 using System.Numerics;
-using BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Builder;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Builder;
 
-namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
+namespace ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
 
 public static class ConstraintsBuilderExtensions
 {

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Internal;
+namespace ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Internal;
 
 internal static class InternalUtil
 {
