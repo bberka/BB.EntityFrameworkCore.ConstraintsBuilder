@@ -1,4 +1,4 @@
-# EfCore.ConstraintsBuilder
+# BB.EntityFrameworkCore.ConstraintsBuilder
 
 Simple constrains builder library for EntityFrameworkCore with Fluent API
 
