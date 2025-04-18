@@ -1,4 +1,4 @@
-# BB.EntityFrameworkCore.ConstraintsBuilder
+# ZDK.EntityFrameworkCore.ConstraintsBuilder
 
 A simple library for applying database constraints with Entity Framework Core's Fluent API.
 
@@ -45,7 +45,7 @@ The library aims to provide constraint building capabilities for fundamental dat
 Entity Framework Core provides the ability to add database constraints using the Fluent API, but it often requires
 writing raw SQL strings. This can be error-prone and reduces code readability.
 
-`BB.EntityFrameworkCore.ConstraintsBuilder` simplifies this process by providing a more strongly-typed and fluent way to
+`ZDK.EntityFrameworkCore.ConstraintsBuilder` simplifies this process by providing a more strongly-typed and fluent way to
 define common constraints like `CHECK` constraints directly within your `DbContext`'s `OnModelCreating` method.
 
 By using this library, you can:
