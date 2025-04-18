@@ -1,11 +1,12 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
+namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Builder;
 
 
 
@@ -32,7 +33,7 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 
   public StringConstraintsBuilder<TEntity> EmailAddress(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalTool.EmailRegex}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalUtil.EmailRegex}'"));
     return this;
   }
 
@@ -40,21 +41,21 @@ public sealed class StringConstraintsBuilder<TEntity>  where TEntity : class
 
   public StringConstraintsBuilder<TEntity> Url(string constraintName) {
     if (string.IsNullOrEmpty(constraintName)) throw new ArgumentNullException(nameof(constraintName));
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalTool.UrlRegex}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalUtil.UrlRegex}'"));
     return this;
   }
 
   public StringConstraintsBuilder<TEntity> PhoneNumber() => PhoneNumber(_builder.CreateUniqueConstraintName(_columnName, nameof(PhoneNumber)));
 
   public StringConstraintsBuilder<TEntity> PhoneNumber(string constraintName) {
-    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalTool.PhoneNumberRegex}'"));
+    _builder.ToTable(x => x.HasCheckConstraint(constraintName, $"[{_columnName}] LIKE '{InternalUtil.PhoneNumberRegex}'"));
     return this;
   }
 
   public StringConstraintsBuilder<TEntity> RegexExpression(string regex) => RegexExpression(_builder.CreateUniqueConstraintName(_columnName, nameof(RegexExpression)), regex);
 
   public StringConstraintsBuilder<TEntity> RegexExpression(string constraintName, string regex) {
-    var isValidRegex = InternalTool.IsValidRegex(regex);
+    var isValidRegex = InternalUtil.IsValidRegex(regex);
     if (!isValidRegex) {
       throw new ArgumentException("Invalid regex expression", nameof(regex));
     }

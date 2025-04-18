@@ -1,10 +1,11 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
+using BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
+namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Builder;
 
 public sealed class GuidConstraintsBuilder<TEntity>  where TEntity : class
 {

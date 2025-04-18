@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer;
+namespace BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer.Internal;
 
-public static class InternalTool
+internal static class InternalUtil
 {
   public const string EmailRegex = "^[^@]+@[^@]+$";
   public const string UrlRegex = @"^(http://|https://|ftp://)";
@@ -26,15 +26,15 @@ public static class InternalTool
     return sb.ToString();
   }
 
-  public static string CreateUniqueConstraintName<T>(this EntityTypeBuilder<T> builder,
-    string columnName, 
-    string suffix) where T : class{
+  internal static string CreateUniqueConstraintName<T>(this EntityTypeBuilder<T> builder,
+                                                       string columnName, 
+                                                       string suffix) where T : class{
     var tableName = builder.Metadata.GetTableName() ?? typeof(T).Name;
     var count = builder.Metadata.GetCheckConstraints().Count(x => x.Name?.Contains(columnName) == true);
     return CreateUniqueConstraintName(tableName, columnName, suffix, count);
   }
 
-  public static bool IsValidRegex(string regex) {
+  internal static bool IsValidRegex(string regex) {
     try {
       _ = new Regex(regex);
       return true;
