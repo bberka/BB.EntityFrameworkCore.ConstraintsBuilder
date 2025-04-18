@@ -4,25 +4,25 @@ A simple library for applying database constraints with Entity Framework Core's 
 
 **Note:** This library currently targets and is primarily tested with **SQL Server**.
 
-[![NuGet Version](https://img.shields.io/nuget/v/BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer?style=for-the-badge)](https://www.nuget.org/packages/BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/bberka/BB.EntityFrameworkCore.ConstraintsBuilder/blob/master/LICENSE.txt)
+[![NuGet Version](https://img.shields.io/nuget/v/ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer?style=for-the-badge)](https://www.nuget.org/packages/ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/bberka/ZDK.EntityFrameworkCore.ConstraintsBuilder/blob/master/LICENSE.txt)
 
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).
 
 ## Installation
 
-Install the NuGet package `BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer` into your Entity Framework Core project.
+Install the NuGet package `ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer` into your Entity Framework Core project.
 
 **NuGet Package Manager Console:**
 
 ```bash
-Install-Package BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer
+Install-Package ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer
 ```
 
 **.NET CLI:**
 
 ```bash
-dotnet add package BB.EntityFrameworkCore.ConstraintsBuilder.SqlServer
+dotnet add package ZDK.EntityFrameworkCore.ConstraintsBuilder.SqlServer
 ```
 
 ## Features
